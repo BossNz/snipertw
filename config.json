@@ -1,5 +1,5 @@
 {
   "phoneNumber": ["0954950599", "0842585799", "0926305287", "0949816159"],
-  "loopSecond": 1,
-  "thread": 2
+  "loopSecond": 0.5,
+  "thread": 1
 }
