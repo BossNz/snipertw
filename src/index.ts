@@ -2,9 +2,22 @@ import { getHashFromTwitter, redeemAngPao } from "./util";
 import consola from "consola";
 
 const config = {
-  phoneNumber: ["0954950599", "0842585799", "0926305287"],
+  phoneNumber: ["0954950599", "0842585799", "0949816159"],
   loopSecond: 3,
 };
+
+// ==================================================================
+// ==================================================================
+// ==================================================================
+// ==================================================================
+// ==================================================================
+// Please run with bun using the following command: `bun ./src/index.ts`
+// ==================================================================
+// ==================================================================
+// ==================================================================
+// ==================================================================
+// ==================================================================
+
 const cache: string[] = [];
 let iCookie = 0;
 
@@ -25,17 +38,19 @@ const main = async () => {
     });
   } catch (e) {
     if (e === 1) {
-      if (iCookie === tokens.length - 1) {
-        consola.error("ALL TOKEN RATE LIMIT");
-        process.exit();
-      }
       iCookie++;
+      if (iCookie === tokens.length - 1) {
+        consola.error("RESET TOKEN TO 1");
+        iCookie = 0;
+      }
       consola.info(`SWITCH TOKEN TO ${iCookie + 1} !!`);
     }
   }
 };
 (async () => {
   consola.info("START BOT SNIPER TRUEWALLET");
-  consola.info(`HAVE ${tokens.length} TOKEN COOKIE`);
+  consola.info(
+    `HAVE ${tokens.length} TOKEN AND COOKIE LOOP ${config.loopSecond} SEC`
+  );
   setInterval(main, config.loopSecond * 1000);
 })();

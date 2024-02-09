@@ -9,6 +9,7 @@ interface TwitterCookie {
 
 async function redeemAngPao(hash: string, mobile: string) {
   try {
+    //https://54.251.227.82/campaign/vouchers/75ffb24ca9f6462e9c6f5b43e61f99fcb98/verify
     const result = await ofetch(
       `https://gift.truemoney.com/campaign/vouchers/${hash}/redeem`,
       {
