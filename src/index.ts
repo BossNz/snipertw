@@ -2,8 +2,8 @@ import { getHashFromTwitter, redeemAngPao } from "./util";
 import consola from "consola";
 
 const config = {
-  phoneNumber: ["0954950599", "0842585799", "0971719152", "0949816159"],
-  loopSecond: 3,
+  phoneNumber: ["0954950599", "0842585799", "0926305287", "0949816159"],
+  loopSecond: 2,
 };
 
 // ==================================================================
