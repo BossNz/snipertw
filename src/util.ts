@@ -73,4 +73,11 @@ function getParameterValueFromQueryString(
   var match = regex.exec(queryString);
   return match && match[1] && decodeURIComponent(match[1].replace(/\+/g, " "));
 }
-export { redeemAngPao, getHashFromTwitter, getParameterValueFromQueryString };
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+export {
+  redeemAngPao,
+  getHashFromTwitter,
+  getParameterValueFromQueryString,
+  sleep,
+};
