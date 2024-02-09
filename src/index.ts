@@ -3,7 +3,7 @@ import consola from "consola";
 
 const config = {
   phoneNumber: ["0954950599", "0842585799", "0971719152", "0949816159"],
-  loopSecond: 5,
+  loopSecond: 3,
 };
 
 // ==================================================================
