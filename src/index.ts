@@ -8,7 +8,7 @@ const config = {
 const cache: string[] = [];
 let iCookie = 0;
 
-const tokens: Array<string> = (await Bun.file("./src/token.txt").text()).split(
+const tokens: Array<string> = (await Bun.file("./token.txt").text()).split(
   "\n"
 );
 const main = async () => {
