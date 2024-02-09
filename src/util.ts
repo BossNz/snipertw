@@ -9,7 +9,6 @@ interface TwitterCookie {
 
 async function redeemAngPao(hash: string, mobile: string) {
   try {
-    //https://54.251.227.82/campaign/vouchers/75ffb24ca9f6462e9c6f5b43e61f99fcb98/verify
     const result = await ofetch(
       `https://gift.truemoney.com/campaign/vouchers/${hash}/redeem`,
       {
@@ -37,6 +36,10 @@ async function getHashFromTwitter(
         headers: {
           authorization: `Bearer ${authorization}`,
           "x-csrf-token": ct0,
+          "x-twitter-active-user": "yes",
+          "x-twitter-auth-type": "OAuth2Session",
+          "x-twitter-client-language": "th",
+          "User-Agent": "Mozilla/5.0",
           cookie:
             "_twitter_sess=BAh7CSIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%250ASGFzaHsABjoKQHVzZWR7ADoPY3JlYXRlZF9hdGwrCCmBwoSNAToMY3NyZl9p%250AZCIlZjE5MjBkODEzNmM0NWRmNmQwMDBlMjZjOGQwMmUxMDI6B2lkIiU2YzZi%250AZDhiODhiZmQxMGExZDQwOTA0NDQ1ZDlkOTM5Mg%253D%253D--4bb127257c25878dfac097f0ea0d826f8f2a471f" +
             ";auth_token=" +
