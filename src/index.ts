@@ -1,10 +1,6 @@
-import { getHashFromTwitter, redeemAngPao } from "./util";
+import { getHashFromTwitter, redeemAngPao, sleep } from "./util";
 import consola from "consola";
-
-const config = {
-  phoneNumber: ["0954950599", "0842585799", "0926305287"],
-  loopSecond: 1,
-};
+import config from "../config.json";
 
 // ==================================================================
 // ==================================================================
@@ -17,40 +13,22 @@ const config = {
 // ==================================================================
 // ==================================================================
 // ==================================================================
-
-const cache: string[] = [];
-let iCookie = 0;
-
 const tokens: Array<string> = (await Bun.file("./token.txt").text()).split(
   "\n"
 );
-const main = async () => {
-  try {
-    let token = tokens[iCookie].split("|");
-    const result = await getHashFromTwitter(token[0], token[1]);
-    result.forEach((hash) => {
-      if (cache.includes(hash)) return;
-      consola.info(`NEW HASH ${hash}`);
-      config.phoneNumber.forEach((_) => {
-        redeemAngPao(hash, _);
-      });
-      cache.push(hash);
-    });
-  } catch (e) {
-    if (e === 1) {
-      iCookie++;
-      if (iCookie === tokens.length - 1) {
-        consola.error("RESET TOKEN TO 1");
-        iCookie = 0;
-      }
-      consola.info(`SWITCH TOKEN TO ${iCookie + 1} !!`);
-    }
-  }
-};
+const workerList: Worker[] = [];
 (async () => {
   consola.info("START BOT SNIPER TRUEWALLET");
   consola.info(
     `HAVE ${tokens.length} TOKEN AND COOKIE LOOP ${config.loopSecond} SEC`
   );
-  setInterval(main, config.loopSecond * 1000);
+  for (let i in Array.from({ length: config.thread })) {
+    const workerURL = new URL("worker.ts", import.meta.url).href;
+    const _ = new Worker(workerURL);
+    workerList.push(_);
+  }
+  for (let i in workerList) {
+    await sleep(300);
+    workerList[i].postMessage({ workerNumber: Number(i) + 1, tokens: tokens });
+  }
 })();
